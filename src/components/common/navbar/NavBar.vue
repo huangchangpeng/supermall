@@ -1,6 +1,6 @@
 <template>
   <!-- 头部 Navbar 组件 -->
-  <div class="nav_bar">
+  <div class="nav_bar" :style="{ backgroundColor: `${backgroundColor}` }">
     <div class="left">
       <slot name="left"></slot>
     </div>
@@ -14,9 +14,34 @@
 </template>
 <script>
 export default {
-  data() {
-    return {};
+  props: {
+    itemColour: {
+      type: String,
+      default() {
+        return "#0cbd82";
+      },
+    },
   },
+  data() {
+    return {
+      backgroundColor: "",
+    };
+  },
+
+  watch: {
+    itemColour: function (newVal, oldVal) {
+      this.backgroundColor = newVal;
+    },
+  },
+
+  computed: {
+    newBackground() {
+      let arr = { backgroundColor: this.itemColour };
+      return arr;
+    },
+  },
+
+  methods: {},
 };
 </script>
 <style lang="less" scoped>
