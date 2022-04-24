@@ -33,7 +33,6 @@ instance.interceptors.response.use(res => {
     return Promise.reject(err);
 })
 
-
 export function get(url, params) {
     return new Promise((resolve, reject) => {
         instance.get(url, {

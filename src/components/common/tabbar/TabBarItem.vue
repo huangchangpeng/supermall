@@ -38,6 +38,7 @@ export default {
       },
     };
   },
+
   computed: {
     isActive() {
       // route.path 判断里面有没有处于活跃的路由 ，如果有的话 isActive 就是true 其他的都是false
@@ -51,6 +52,7 @@ export default {
     },
   },
   watch: {},
+
   methods: {
     itemClick() {
       // replace 是不可返回上一页面

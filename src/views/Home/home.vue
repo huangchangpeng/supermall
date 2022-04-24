@@ -1,10 +1,22 @@
 <template>
   <div id="home">
     <NavBer class="nome_nav" :itemColour="itemColour">
+      <div
+        slot="left"
+        v-if="hideLeft"
+        class="navBar_left"
+        @click="onClickLeft"
+      >
+        <van-icon name="arrow-left" />
+      </div>
       <div slot="center">购物街</div>
+      <div slot="right" @click="goClass">分类</div>
     </NavBer>
 
+    <!-- <div class="wrapper">
+      <div class="content"> -->
     <!-- TODO: 轮播图 -->
+
     <van-swipe
       class="my-swipe"
       @change="getIndex"
@@ -58,15 +70,19 @@
     ></TabControl>
 
     <!-- 首页商品列表 上拉加载 -->
-    <van-list
-      v-model="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="geMilltHomeGoods('pop')"
-    >
-      <GoodsList :goods="goods.pop.list"></GoodsList>
-    </van-list>
+    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="geMilltHomeGoods(true)"
+      >
+        <GoodsList :goods="goods.pop.list"></GoodsList>
+      </van-list>
+    </van-pull-refresh>
   </div>
+  <!-- </div>
+  </div> -->
 </template>
 
 <script>
@@ -76,10 +92,8 @@ import NavBer from "components/common/navbar/NavBar.vue";
 import TabControl from "components/content/tabControl.vue";
 // TODO: 首页商品列表
 import GoodsList from "components/content/goodsList.vue";
-import axios from "axios";
-// import { get } from "../../utils/request.js";
 export default {
-  name: "home",
+  name: "Home",
   data() {
     return {
       title: "首页",
@@ -92,6 +106,9 @@ export default {
       },
       loading: false,
       finished: false,
+      refreshing: false,
+
+      hideLeft: false,
 
       colour: [
         "#f44336",
@@ -111,9 +128,19 @@ export default {
     TabControl,
     GoodsList,
   },
-
+  mounted() {}, 
   methods: {
-    // TODO: 子组件传递过来的数据
+    onClickLeft() {
+      this.$router.go(-1);
+    },
+
+    goClass() {
+      this.$router.push({
+        path: "/goodsClass",
+      });
+    },
+
+    // 子组件传递过来的数据
     switchType(val) {
       console.log(val);
     },
@@ -156,6 +183,13 @@ export default {
         });
     },
 
+    // TODO: 下拉刷新
+    onRefresh() {
+      this.finished = false;
+      this.loading = true;
+      this.geMilltHomeGoods(true);
+    },
+
     // TODO: 下面列表
     geMilltHomeGoods(type) {
       const page = this.goods["pop"].page + 1;
@@ -185,6 +219,7 @@ export default {
             this.finished = false;
           }
           this.loading = false;
+          this.refreshing = false;
         })
         .catch((err) => {
           console.log(err);
@@ -221,7 +256,7 @@ export default {
 </script>
 <style scoped lang="less">
 #home {
-  padding-top: 0.88rem;
+  // padding-top: 0.88rem;
   padding-bottom: 1rem;
 }
 /* 设置 navber 在当前组件的展现样式 */
@@ -320,5 +355,6 @@ export default {
 .tabControl {
   position: sticky;
   top: 0.88rem;
+  z-index: 9;
 }
 </style>

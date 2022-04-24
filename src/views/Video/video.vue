@@ -1,14 +1,20 @@
 <template>
   <div>
-    <h2>短视频</h2>
+    <Cart></Cart>
   </div>
 </template>
 
 <script>
+import Cart from "components/content/cart";
 export default {
-  name:'vido'
-}
+  components: {
+    Cart,
+  },
+  name: "vido",
+  data() {
+    return {};
+  },
+};
 </script>
 <style scoped>
-
 </style>

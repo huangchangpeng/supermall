@@ -1,7 +1,7 @@
 <template>
   <div class="goodsList">
     <div class="list" v-for="item in goods" :key="item._id">
-      <div class="listItem">
+      <div class="listItem" @click="goCommDetails">
         <img :src="item.coverImg" alt="" srcset="" />
         <div class="msg">
           <div>{{ item.name }}</div>
@@ -25,7 +25,14 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    goCommDetails() {
+      this.$router.push({
+        path: "/CommDetails",
+        query: {},
+      });
+    },
+  },
   created() {},
 };
 </script>

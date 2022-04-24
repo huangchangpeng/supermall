@@ -20,6 +20,8 @@ export default {
       default() {
         return "#0cbd82";
       },
+      hideLeft: Boolean,
+      color: String,
     },
   },
   data() {
@@ -41,7 +43,9 @@ export default {
     },
   },
 
-  methods: {},
+  methods: {
+
+  },
 };
 </script>
 <style lang="less" scoped>

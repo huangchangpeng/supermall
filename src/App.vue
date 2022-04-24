@@ -1,20 +1,28 @@
 <template>
-  <div id="app">
+  <div id="app" class="wrapper">
     <router-view></router-view>
-    <MainTabbar />
+
+    <!-- <MainTabbar /> -->
   </div>
 </template>
 <script>
-import MainTabbar from "./components/content/MainTabbar.vue";
+// import MainTabbar from "./components/content/MainTabbar.vue";
 export default {
   name: "App",
   data() {
     return {};
   },
   components: {
-    MainTabbar,
+    // MainTabbar,
   },
+  methods: {},
+
+  mounted() {},
+  
 };
 </script>
 <style lang="less">
+.wrapper{
+    padding-top: 0.88rem;
+}
 </style>
